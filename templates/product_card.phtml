@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Карточка товара - <?= $product['name'] ?></h1>
+    <img src="<?= $product['photo'] ?>" width="400" alt="<?= $product['name'] ?>"></img>
+    <ul>
+        <li><b>Категория: </b><?= $product['category'] ?></li>
+        <li><b>Бренд: </b><?= $product['brand'] ?></li>
+        <li><b>Цена: </b><?= $product['price'] ?></li>
+        <li><b>Статус: </b><?= $product['status'] == 1 ? 'вкл': 'выкл' ?></li>
+        <li><b>Описание: </b><?= $product['description'] ?></li>
+    </ul>
+    <a href="/table<?= $product['id'] ?>/edit">Редактировать товар</a>
+</body>
+</html>

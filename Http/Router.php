@@ -33,13 +33,10 @@ class Router
       }
       $callback = $this->routes[$method][$path] ?? false;
       
-      // if ($callback === false) {
-      //     return "404";
-      // }
+      if ($callback === false) {
+          return "404";
+      }
 
-      print_r($path);
-      print_r($method);
-      print_r($this->routes);
       return call_user_func($callback, $this->request);
   }
 }

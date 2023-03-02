@@ -7,15 +7,31 @@
     <title>Document</title>
 </head>
 <body>
-    <a> <?= $products['name'] ?></a>
+    <a href="/">Добавить новый товар</a>
     <h1>Список продуктов</h1>
     <h3>Отфильтровать по:</h3>
     <form action="/table/filter" method="post">
-    <input type="text" placeholder="Название" name="name">
-    <input type="text" placeholder="Категория" name="category">
-
-    <button type="submit">Фильтровать</button>
+        <input type="text" placeholder="Название" name="name">
+        <label for="category_select">Выберете категорию</label>
+        <select name="category" id="category_select">
+            <option value="" disabled selected>-- Категории --</option>
+            <option value="1">Телефон</option>
+            <option value="2">Ноутбук</option>
+            <option value="3">Наушники</option>
+        </select>
+        <label for="brand_select">Выберете бренд</label>
+        <select name="brand" id="brand_select">
+            <option value="" disabled selected>-- Бренд --</option>
+            <option value="1">apple</option>
+            <option value="2">samsung</option>
+            <option value="3">Huawei</option>
+        </select>
+        <input type="text" placeholder="Цена от" name="price_from">
+        <input type="text" placeholder="Цена до" name="price_to">
+        <button type="submit">Фильтровать</button>
     </form>
+    <h3>Сортировать по:</h3>
+
     <table>
         <tbody>
             <tr>
@@ -32,11 +48,11 @@
             <tr>
                 <td><?= $product['name'] ?></td>
                 <td><?= $product['category'] ?></td>
-                <td><?= $product['Brand'] ?></td>
+                <td><?= $product['brand'] ?></td>
                 <td><img src="<?= $product['photo'] ?>" width="150" alt="<?= $product['name'] ?>"></td>
-                <td><a href="<?= $product['url'] ?>"><?= $product['name'] ?></a></td>
+                <td><a href="/table/<?= $product['id'] ?>"><?= $product['name'] ?></a></td>
                 <td><?= $product['price'] ?></td>
-                <td><?= $product['status'] ?></td>
+                <td><?= $product['status'] == 1 ? 'вкл': 'выкл' ?></td>
                 <td><?= $product['description'] ?></td>
             </tr>
             <?php endforeach; ?>

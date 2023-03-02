@@ -7,10 +7,37 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="/table">Список товаров</a>
     <h1>Добавить новый продукт</h1>
+    <h3><?= $flash ?></h3>
     <form action="/" method="post">
         <input type="text" placeholder="Название" name="name">
-        <input type="text" placeholder="Категория" name="category">
+        <input type="text" placeholder="Ссылка на фото" name="photo">
+        <input type="text" placeholder="Цена" name="price">
+        <input type="text" placeholder="Описание товара" name="description">
+        <br>
+        <br>
+        <label for="category_select">Выберете категорию</label>
+        <select name="category" id="category_select">
+            <option value="">-- Категории --</option>
+            <option value="1">Телефон</option>
+            <option value="2">Ноутбук</option>
+            <option value="3">Наушники</option>
+        </select>
+        <label for="brand_select">Выберете бренд</label>
+        <select name="brand" id="brand_select">
+            <option value="">-- Бренд --</option>
+            <option value="1">apple</option>
+            <option value="2">samsung</option>
+            <option value="3">Huawei</option>
+        </select>
+        </select>
+        <label for="status_select">Выберете статус</label>
+        <select name="status" id="status_select">
+
+            <option value='1'>вкл</option>
+            <option value='0'>выкл</option>
+        </select>
         <button type="submit">Добавить</button>
     </form>
 </body>
