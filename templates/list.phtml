@@ -8,7 +8,7 @@
 </head>
 <body>
     <a href="/">Добавить новый товар</a>
-    <h1>Список продуктов</h1>
+    <h1>Список товаров</h1>
     <h3>Отфильтровать по:</h3>
     <form action="/table/filter" method="post">
         <input type="text" placeholder="Название" name="name">
@@ -43,6 +43,7 @@
                 <th>Цена</th>
                 <th>Статус</th>
                 <th>Описание</th>
+                <th>Удалить товар</th>
             </tr>
             <?php foreach ($products as $product) : ?>
             <tr>
@@ -54,6 +55,12 @@
                 <td><?= $product['price'] ?></td>
                 <td><?= $product['status'] == 1 ? 'вкл': 'выкл' ?></td>
                 <td><?= $product['description'] ?></td>
+                <td>
+                    <form action="/table" method="post">
+                        <input type="hidden"  name="id" value="<?= $product['id'] ?>">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

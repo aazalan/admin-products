@@ -59,17 +59,35 @@ class ProductsController
             return "404";
     }
 
-    public function showEditPage() {
-
+    public function showEditPage($id) {
+        $product = $this->connection->getProduct($id);
+        require_once __DIR__ . '../../templates/edit_product.phtml';
     }
 
 
-    public function edit($id) {
+    public function edit($data, $id) {
+        $emptyFields = array_filter($data, function($item) {
+            return strlen($item) == 0;
+        });
 
+        if (!empty($emptyFields)) {
+            $flash = 'Заполните все поля';
+            require_once __DIR__ . '../../templates/edit_product.phtml';
+            return;
+        }
+
+        $this->connection->updateProduct($data, $id);
+        $product = $this->connection->getProduct($id);
+        print_r($data);
+        print_r('new');
+        print_r($product);
+        require_once __DIR__ . '../../templates/product_card.phtml';
     }
 
     public function delete($id) {
-
+        $this->connection->deleteProduct($id);
+        $products = $this->connection->getAllPoducts();
+        require_once __DIR__ . '../../templates/list.phtml';
     }
 
     public function showByProperty($properties) {

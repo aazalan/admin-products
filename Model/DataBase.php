@@ -79,4 +79,29 @@ class DataBase
             'description' => $product['description']
         ], false);
     }
+
+    public function updateProduct($product, $id) {
+        $sql = 'UPDATE products 
+            SET name = :name, category_id = :category_id,
+            brand_id = :brand_id, photo = :photo,
+            price = :price, status = :status,
+            description = :description
+            WHERE id = :id';
+            
+        $this->doQuery($sql, [
+            'name' => $product['name'],
+            'category_id' => (int) $product['category'],
+            'brand_id' => (int) $product['brand'],
+            'photo' => $product['photo'],
+            'price' => $product['price'],
+            'status' => $product['status'],
+            'description' => $product['description'],
+            'id' => $id
+        ], false);
+    }
+
+    public function deleteProduct($id) {
+        $sql = 'DELETE FROM products WHERE id = :id';
+        $this->doQuery($sql, ['id' => $id], false);
+    }
 }

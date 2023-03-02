@@ -7,14 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/table">Список товаров</a>
-    <h1>Добавить новый товар</h1>
+<h1>Редактировать товар</h1>
     <h3><?= $flash ?></h3>
-    <form action="/" method="post">
-        <input type="text" placeholder="Название" name="name">
-        <input type="text" placeholder="Ссылка на фото" name="photo">
-        <input type="text" placeholder="Цена" name="price">
-        <input type="text" placeholder="Описание товара" name="description">
+    <form action="/table/<?= $product['id'] ?>" method="post">
+        <input type="text" placeholder="Название" name="name" value="<?= $product['name'] ?>">
+        <input type="text" placeholder="Ссылка на фото" name="photo" value="<?= $product['photo'] ?>">
+        <input type="text" placeholder="Цена" name="price" value="<?= $product['price'] ?>">
+        <input type="text" placeholder="Описание товара" name="description" value="<?= $product['description'] ?>">
         <br>
         <br>
         <label for="category_select">Выберете категорию</label>

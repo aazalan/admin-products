@@ -26,9 +26,19 @@ $router->get('/table', function($request) {
     $controller->showList();
   });
 
+  $router->post('/table', function($request) {
+    $controller = new ProductsController();
+    $controller->delete($request->getBody()['id']);
+  });
+
 $router->get('/table/{id}', function($request, $params) {
     $controller = new ProductsController();
     $controller->show($params[0]);
+});
+
+$router->post('/table/{id}', function($request, $params) {
+  $controller = new ProductsController();
+  $controller->edit($request->getBody(), $params[0]);
 });
 
 $router->get('/table/{id}/edit', function($request, $params) {

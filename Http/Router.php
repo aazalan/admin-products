@@ -22,13 +22,18 @@ class Router
   {
   	$this->routes['post'][$path] = $callback;
   }
+
+  // public function delete($path, $callback)
+  // {
+  // 	$this->routes['delete'][$path] = $callback;
+  // }
   
   public function resolve()
   {
       $path = $this->request->getPath();
       $method = $this->request->getMethod();
       if (preg_match('/[0-9]+/',$path, $params)) {
-        $callback = $this->routes[$method]['/table/{id}'];
+        $callback = $this->routes[$method][str_replace($params[0], '{id}', $path)];
         return call_user_func($callback, $this->request, $params);
       }
       $callback = $this->routes[$method][$path] ?? false;
