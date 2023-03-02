@@ -1,0 +1,19 @@
+{
+    "name": "aaz_alan/admin-products",
+    "authors": [
+        {
+            "name": "Alina Abdul",
+            "email": "alinka140901@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Controllers\\" : "controllers/",
+            "Http\\" : "Http/",
+            "Model\\" : "Model/"
+        }
+    }
+}
