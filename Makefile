@@ -8,3 +8,9 @@ dbrun:
 
 connect:
 	mysql -u root -p
+
+migrate:
+	php -f Model/migration.php
+
+setup:
+	composer update

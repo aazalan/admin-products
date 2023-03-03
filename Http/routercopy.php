@@ -81,3 +81,12 @@ class Router
     }
   
 }
+
+
+
+
+AND price < :price_to AND 
+        price > :price_from
+
+        'price_to' => $properties['price_to'],
+            'price_from' => $properties['price_to']

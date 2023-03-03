@@ -39,15 +39,19 @@ class DataBase
             ['id' => $id])[0]['brand'];
     }
 
-    public function getAllPoducts() {
-        $sql = 'SELECT * FROM products';
-        $fetched = $this->doQuery($sql, []);
+    private function normalizeData($fetched) {
         $productsData = array_map(function($item) {
             $item['category'] = $this->getCategory($item['category_id']);
             $item['brand'] = $this->getBrand($item['brand_id']);
             return $item;
         }, $fetched);
         return $productsData;
+    }
+
+    public function getAllPoducts() {
+        $sql = 'SELECT * FROM products';
+        $fetched = $this->doQuery($sql, []);
+        return $this->normalizeData($fetched);
     }
 
     public function isInBase($id) {
@@ -103,5 +107,53 @@ class DataBase
     public function deleteProduct($id) {
         $sql = 'DELETE FROM products WHERE id = :id';
         $this->doQuery($sql, ['id' => $id], false);
+    }
+
+    public function getFiltred($properties) {
+        $params = [
+            'name' => $properties['name'] ? $properties['name'] . '%' : '%',
+            'price_to' => $properties['price_to'] ? $properties['price_to'] : 100000000,
+            'price_from' => $properties['price_from'] ? $properties['price_from'] : 0
+        ];
+        
+        $sql = 'SELECT * FROM products WHERE 
+            name LIKE :name AND price < :price_to 
+            AND price > :price_from ';
+
+        if ($properties['category']) {
+            $sql = $sql . 'AND category_id = :category_id ';
+            $params['category_id'] = $properties['category'];
+        }
+        if ($properties['brand']) {
+            $sql = $sql . 'AND brand_id = :brand_id';
+            $params['brand_id'] = $properties['brand'];
+        }
+        $fetched = $this->doQuery($sql, $params);
+        return $this->normalizeData($fetched);
+    }
+
+    public function getSortedBy($property) {
+        switch($property) {
+            case 'price':
+                $sql = 'SELECT * FROM products ORDER BY price';
+                break;
+            case 'name':
+                $sql = 'SELECT * FROM products ORDER BY name';
+                break;
+            case 'created_at':
+                $sql = 'SELECT * FROM products ORDER BY created_at';
+                break;
+        }
+        
+        $fetched = $this->doQuery($sql, []);
+        return $this->normalizeData($fetched);
+    }
+
+    public function switch($status, $id) {
+        $sql = 'UPDATE products SET status = :status
+            WHERE id = :id';
+        $this->doQuery($sql, [
+            'status' => $status, 
+            'id' => $id], false);
     }
 }

@@ -9,9 +9,10 @@
 <body>
     <a href="/">Добавить новый товар</a>
     <h1>Список товаров</h1>
+
     <h3>Отфильтровать по:</h3>
-    <form action="/table/filter" method="post">
-        <input type="text" placeholder="Название" name="name">
+    <form action="/table" method="post">
+        <input type="text" placeholder="Название" name="name" value="<?= $properties['name']?>">
         <label for="category_select">Выберете категорию</label>
         <select name="category" id="category_select">
             <option value="" disabled selected>-- Категории --</option>
@@ -26,12 +27,21 @@
             <option value="2">samsung</option>
             <option value="3">Huawei</option>
         </select>
-        <input type="text" placeholder="Цена от" name="price_from">
-        <input type="text" placeholder="Цена до" name="price_to">
+        <input type="text" placeholder="Цена от" name="price_from" value="<?= $properties['price_from']?>">
+        <input type="text" placeholder="Цена до" name="price_to" value="<?= $properties['price_to']?>">
         <button type="submit">Фильтровать</button>
     </form>
-    <h3>Сортировать по:</h3>
 
+    <h3>Сортировать по:</h3>
+    <form action="/table" method="post">
+        <select name="sort" id="sort_select">
+                <option value="" disabled selected>-- Сортировать по --</option>
+                <option value="price">По цене</option>
+                <option value="name">По названию</option>
+                <option value="created_at">По новизне</option>
+            </select>
+            <button type="submit">Сортировать</button>
+        </form>
     <table>
         <tbody>
             <tr>
@@ -53,11 +63,17 @@
                 <td><img src="<?= $product['photo'] ?>" width="150" alt="<?= $product['name'] ?>"></td>
                 <td><a href="/table/<?= $product['id'] ?>"><?= $product['name'] ?></a></td>
                 <td><?= $product['price'] ?></td>
-                <td><?= $product['status'] == 1 ? 'вкл': 'выкл' ?></td>
+                <td>
+                    <form action="/table" method="post">
+                        <input type="hidden"  name="status" value="<?= $product['status'] ?>">
+                        <input type="hidden"  name="id" value="<?= $product['id'] ?>">
+                        <button type="submit"><?= $product['status'] == 1 ? 'вкл': 'выкл' ?></button>
+                    </form>
+                </td>
                 <td><?= $product['description'] ?></td>
                 <td>
                     <form action="/table" method="post">
-                        <input type="hidden"  name="id" value="<?= $product['id'] ?>">
+                        <input type="hidden"  name="delete_id" value="<?= $product['id'] ?>">
                         <button type="submit">Удалить</button>
                     </form>
                 </td>

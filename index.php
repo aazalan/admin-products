@@ -28,7 +28,20 @@ $router->get('/table', function($request) {
 
   $router->post('/table', function($request) {
     $controller = new ProductsController();
-    $controller->delete($request->getBody()['id']);
+    switch(array_key_first($request->getBody())) {
+      case 'delete_id':
+        $controller->delete($request->getBody()['delete_id']);
+        break;
+      case 'sort':
+        $controller->sort($request->getBody()['sort']);
+        break;
+      case 'name':
+        $controller->filter($request->getBody());
+        break;
+      case 'status': 
+
+        $controller->switchStatus($request->getBody()['status'], $request->getBody()['id']);
+    }
   });
 
 $router->get('/table/{id}', function($request, $params) {

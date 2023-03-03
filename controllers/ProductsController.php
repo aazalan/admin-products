@@ -78,9 +78,6 @@ class ProductsController
 
         $this->connection->updateProduct($data, $id);
         $product = $this->connection->getProduct($id);
-        print_r($data);
-        print_r('new');
-        print_r($product);
         require_once __DIR__ . '../../templates/product_card.phtml';
     }
 
@@ -90,27 +87,21 @@ class ProductsController
         require_once __DIR__ . '../../templates/list.phtml';
     }
 
-    public function showByProperty($properties) {
-
+    public function filter($properties) {
+        $products = $this->connection->getFiltred($properties);
+        require_once __DIR__ . '../../templates/list.phtml';
     }
 
-    // public function showByStatus($status) {
 
-    // }
+    public function sort($property) {
+        $products = $this->connection->getSortedBy($property);
+        require_once __DIR__ . '../../templates/list.phtml';
+    }
 
-    // public function showByName($name) {
-
-    // }
-
-    // public function showByBrand($brand) {
-
-    // }
-
-    // public function showByCategory($category) {
-
-    // }
-
-    // public function showByPrice($min, $max) {
-
-    // }
+    public function switchStatus($status, $id) {
+        $newStatus = $status == 1 ? 0 : 1;
+        $this->connection->switch($newStatus, $id);
+        $products = $this->connection->getAllPoducts();
+        require_once __DIR__ . '../../templates/list.phtml';
+    }
 }
