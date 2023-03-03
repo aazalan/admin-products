@@ -5,7 +5,6 @@ start:
 dbrun:
 	sudo /etc/init.d/mysql start
 
-
 connect:
 	mysql -u root -p
 
